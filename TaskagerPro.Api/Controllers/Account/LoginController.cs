@@ -18,9 +18,9 @@ namespace TaskagerPro.Api.Controllers.Account
     public class LoginController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        private readonly JwtSettings _jwtSettings;
+        private readonly JwtSettingsModel _jwtSettings;
 
-        public LoginController(IAccountService accountService, JwtSettings jwtSettings)
+        public LoginController(IAccountService accountService, JwtSettingsModel jwtSettings)
         {
             _accountService = accountService;
             _jwtSettings = jwtSettings;
