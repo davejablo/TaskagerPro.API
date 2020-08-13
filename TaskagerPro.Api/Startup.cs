@@ -19,6 +19,8 @@ using Microsoft.IdentityModel.Tokens;
 using TaskagerPro.Core.Identities;
 using TaskagerPro.Core.Models;
 using TaskagerPro.DAL;
+using TaskagerPro.Services.Interfaces;
+using TaskagerPro.Services.Repositories;
 
 namespace TaskagerPro.Api
 {
@@ -73,6 +75,9 @@ namespace TaskagerPro.Api
                     ValidAudience = jwtSettings.Audience
                 };
             });
+
+            //dependency injection container
+            services.AddTransient<IAccountService, AccountRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
