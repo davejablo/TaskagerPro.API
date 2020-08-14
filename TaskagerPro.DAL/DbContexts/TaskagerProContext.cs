@@ -22,6 +22,20 @@ namespace TaskagerPro.DAL
                 .WithMany(t => t.ApplicationUsers)
                 .HasForeignKey(u => u.AccountTypeId);
 
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(a => a.Sex)
+                .HasMaxLength(1)
+                .HasDefaultValue(null);
+
+            modelBuilder.Entity<UserProject>()
+                .HasOne(up => up.Project)
+                .WithMany(p => p.UserProjects)
+                .HasForeignKey(up => up.ProjectId);
+            modelBuilder.Entity<UserProject>()
+                .HasOne(up => up.User)
+                .WithMany(u => u.UserProjects)
+                .HasForeignKey(up => up.UserId);
+            
             modelBuilder.Entity<AccountType>()
                 .HasData(new AccountType { Id = 1, Name = "Admin", Description = "Admin" },
                          new AccountType { Id = 2, Name = "Leader", Description = "Leader" },
