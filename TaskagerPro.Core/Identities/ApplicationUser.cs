@@ -10,8 +10,10 @@ namespace TaskagerPro.Core.Identities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public decimal HourWage { get; set; }
         public int AccountTypeId { get; set; }
         public AccountType AccountType { get; set; }
         public string Sex { get; set; }
+        public ICollection<UserProject> UserProjects { get; set; }
     }
 }
