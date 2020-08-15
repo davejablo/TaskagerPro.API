@@ -12,11 +12,12 @@ namespace TaskagerPro.Api.Controllers.Account
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly IAccountService _accountService;
+        private readonly IAccountRepository _accountService;
 
-        public RegisterController(IAccountService accountService)
+        public RegisterController(IAccountRepository accountService)
         {
-            _accountService = accountService;
+            _accountService = accountService ??
+                throw new ArgumentNullException(nameof(accountService));
         }
 
         [HttpPost]

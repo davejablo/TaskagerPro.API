@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskagerPro.Services.Interfaces
 {
-    public interface IProjectService
+    public interface ITaskRepository
     {
 
     }

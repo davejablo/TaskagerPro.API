@@ -10,24 +10,36 @@ using TaskagerPro.Services.Interfaces;
 namespace TaskagerPro.Api.Controllers.Account
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/users")]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountService _accountService;
+        private readonly IAccountRepository _accountService;
 
-        public AccountsController(IAccountService accountService)
+        public AccountsController(IAccountRepository accountService)
         {
-            _accountService = accountService;
+            _accountService = accountService ??
+                throw new ArgumentNullException(nameof(accountService));
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetByUsernameAsync()
         {
             var username = User.Claims.Where(c => c.Type == "username").First().Value;
             var result = await _accountService.GetAccountByUsernameAsync(username);
 
             return Ok(result);
+        }
+
+        [HttpGet("{userId}", Name = "GetUserById")]
+        public async Task<IActionResult> GetByIdAsync(Guid userId)
+        {
+            var userFromRepo = await _accountService.GetAccountByIdAsync(userId);
+            if (userFromRepo == null)
+            {
+                return NotFound();
+            }
+            return Ok(userFromRepo);
         }
 
         [HttpPatch]
