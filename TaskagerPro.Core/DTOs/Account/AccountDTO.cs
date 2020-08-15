@@ -10,6 +10,7 @@ namespace TaskagerPro.Core.DTOs.Account
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public decimal HourWage { get; set; }
         public string Email { get; set; }
         public string Sex { get; set; }
         public int AccountTypeId { get; set; }

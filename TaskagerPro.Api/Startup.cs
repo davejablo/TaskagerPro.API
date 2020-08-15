@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -21,6 +22,7 @@ using TaskagerPro.Core.Models;
 using TaskagerPro.DAL;
 using TaskagerPro.Services.Interfaces;
 using TaskagerPro.Services.Repositories;
+using Microsoft.OpenApi.Models;
 
 namespace TaskagerPro.Api
 {
@@ -75,9 +77,32 @@ namespace TaskagerPro.Api
                     ValidAudience = jwtSettings.Audience
                 };
             });
+            // Configure Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Taskager Pro - API",
+                    Description = "Endpoints documentation for Taskager Pro - API with ASP.NET Core 3.1",
+                    Contact = new OpenApiContact
+                    {
+                        Email = "davejab97@gmail.com",
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "No license here :)",
+                    }
+                });
+            });
 
-            //dependency injection container
-            services.AddTransient<IAccountService, AccountRepository>();
+            // Add AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Dependency injection container.
+
+            services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,6 +139,13 @@ namespace TaskagerPro.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            // Swagger service register
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trainer-Pro API V1");
             });
         }
     }

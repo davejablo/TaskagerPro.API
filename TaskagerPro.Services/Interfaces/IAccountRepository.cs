@@ -7,11 +7,12 @@ using TaskagerPro.Core.Models;
 
 namespace TaskagerPro.Services.Interfaces
 {
-    public interface IAccountService
+    public interface IAccountRepository
     {
         Task RegisterAsync(RegisterDTO model);
         Task<TokenModel> LoginAsync(LoginDTO model);
         Task<AccountDTO> GetAccountByUsernameAsync(string username);
+        Task<AccountDTO> GetAccountByIdAsync(Guid userId);
         Task UpdateAccountAsync(string username, UpdateAccountDTO model);
     }
 }

@@ -17,12 +17,14 @@ namespace TaskagerPro.Api.Controllers.Account
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IAccountService _accountService;
+        private readonly IAccountRepository _accountService;
         private readonly JwtSettingsModel _jwtSettings;
 
-        public LoginController(IAccountService accountService, JwtSettingsModel jwtSettings)
+        public LoginController(IAccountRepository accountService, JwtSettingsModel jwtSettings)
         {
-            _accountService = accountService;
+            _accountService = accountService ?? 
+                throw new ArgumentNullException(nameof(accountService));
+
             _jwtSettings = jwtSettings;
         }
 

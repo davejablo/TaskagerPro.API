@@ -5,7 +5,7 @@ using TaskagerPro.Services.Interfaces;
 
 namespace TaskagerPro.Services.Repositories
 {
-    public class TaskRepository : ITaskService
+    public class TaskRepository : ITaskRepository
     {
 
     }
