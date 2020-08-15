@@ -102,6 +102,7 @@ namespace TaskagerPro.Api
             // Dependency injection container.
 
             services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
